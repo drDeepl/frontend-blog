@@ -1,0 +1,74 @@
+// INFO: main-colors
+$color-purple: #6c63ff; // 5c27fe
+$color-purple-background: rgba(108, 99, 255, 0.1);
+$color-white: #fff;
+$color-black: #111;
+$color-yellow: #ffc03d;
+$color-orange: #ee5544;
+$color-grey: #5a6170;
+$color-light-grey: #6e6f6a;
+$color-red: #ee4540;
+$color-background-orange: rgba(238, 85, 68, 0.1);
+$color-green: #31c48d;
+$color-background-green: rgba(49, 196, 141, 0.1);
+$color-dark-blue: #0d2750;
+
+// INFO: Font
+$mainFont: 'Montserrat', Helvetica, Arial, sans-serif;
+
+// INFO: card styles
+$card-radius: 17px;
+
+// INFO:Size
+
+$toggle-size: 30px;
+
+$mainFontColor: #101010;
+$mainFontSize: 18px;
+$mainFontWeight: 400;
+$mainLineHeight: 1.4;
+
+$lgDesktopWidth: 1400px;
+$desktopWidth: 1280px;
+$smDesktopWidth: 1024px;
+$tableWidth: 768px;
+$smTableWidth: 640px;
+$phoneWidth: 480px;
+$smPhoneWidth: 320px;
+
+// INFO: Main color
+$bodyBackground: #eff1f3;
+$menuBackground: #1a202e; //
+$menuHover: #121620;
+$navColor: #ffffff;
+$mainLayoutColor: #ffffff;
+
+// INFO: sidebar Color
+$balanceColor: #00d1a4;
+$scrollbar-color: #6a8fb3;
+
+// INFO: Sidebar margin
+$sidebarNav: 1rem;
+$userInfoTop: 5.8rem;
+$userInfoBalance: 2rem;
+
+// INFO: Sidebar Tittle
+$tittlePadding: 1.5rem 0 0 1rem; /* Сверху | Справа | Снизу | Слева */
+
+// INFO: letter
+$letter-spacing: 0.1rem;
+
+// INFO: wrappers
+$WrapperMargin: 2em 0.5em;
+
+// INFO: padding
+$cardPadding: 2rem;
+
+// INFO: TABS
+$tab-bg: #fff;
+$tab-hover-bg: $color-purple;
+$tab-color: #000;
+$tab-hover-color: #fff;
+
+// INFO: shadow
+$shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
