@@ -4,6 +4,7 @@ import {router} from './router';
 import store from './store';
 import Vuex from 'vuex';
 import vuetify from '@/plugins/vuetify';
+import '@/assets/scss/main.scss';
 import Close from 'vue-material-design-icons/Close.vue';
 import Delete from 'vue-material-design-icons/Delete.vue';
 import BackupRestore from 'vue-material-design-icons/BackupRestore.vue';
@@ -14,9 +15,6 @@ import setupInterceptors from './services/setupInterceptors';
 
 Vue.config.productionTip = false;
 
-Vue.use(VeeValidate);
-
-// Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('arrow-icon', ChevronDown);
 Vue.component('close-icon', Close);
 Vue.component('delete-icon', Delete);

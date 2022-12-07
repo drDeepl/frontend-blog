@@ -1,22 +1,8 @@
-@import 'common/navbar';
 @import 'utils/vars';
 @import 'utils/reset';
-@import 'common/cardCollapsed';
-@import 'common/mainLayout';
-@import 'common/tab';
-@import 'common/table';
-@import 'common/form';
-@import 'common/adminTab';
-@import 'common/modalWindow';
-@import 'common/login';
 @import 'common/cards';
-@import 'common/manufacturer';
-@import 'common/shop';
-@import 'common/productKitStore';
-@import 'common/load';
-@import 'common/storage';
-@import 'common/layout';
-@import 'common/dialogs';
+@import 'common/layouts';
+
 body,
 #app {
   font-family: Montserrat;
