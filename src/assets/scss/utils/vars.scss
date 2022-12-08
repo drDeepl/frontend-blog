@@ -15,19 +15,19 @@ $color-dark-blue: #0d2750;
 
 // INFO: Font
 $mainFont: 'Montserrat', Helvetica, Arial, sans-serif;
+$mainFontSize: 17px;
+$mainFontColor: #101010;
+$mainFontWeight: 400;
+$mainLineHeight: 1.4;
 
-// INFO: card styles
-$card-radius: 17px;
+// INFO: border config
+$border-radius: 17px;
 
 // INFO:Size
 
 $toggle-size: 30px;
 
-$mainFontColor: #101010;
-$mainFontSize: 18px;
-$mainFontWeight: 400;
-$mainLineHeight: 1.4;
-
+// INFO: display width
 $lgDesktopWidth: 1400px;
 $desktopWidth: 1280px;
 $smDesktopWidth: 1024px;
@@ -36,39 +36,5 @@ $smTableWidth: 640px;
 $phoneWidth: 480px;
 $smPhoneWidth: 320px;
 
-// INFO: Main color
+// INFO: body
 $bodyBackground: #eff1f3;
-$menuBackground: #1a202e; //
-$menuHover: #121620;
-$navColor: #ffffff;
-$mainLayoutColor: #ffffff;
-
-// INFO: sidebar Color
-$balanceColor: #00d1a4;
-$scrollbar-color: #6a8fb3;
-
-// INFO: Sidebar margin
-$sidebarNav: 1rem;
-$userInfoTop: 5.8rem;
-$userInfoBalance: 2rem;
-
-// INFO: Sidebar Tittle
-$tittlePadding: 1.5rem 0 0 1rem; /* Сверху | Справа | Снизу | Слева */
-
-// INFO: letter
-$letter-spacing: 0.1rem;
-
-// INFO: wrappers
-$WrapperMargin: 2em 0.5em;
-
-// INFO: padding
-$cardPadding: 2rem;
-
-// INFO: TABS
-$tab-bg: #fff;
-$tab-hover-bg: $color-purple;
-$tab-color: #000;
-$tab-hover-color: #fff;
-
-// INFO: shadow
-$shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);

@@ -4,24 +4,24 @@ import {router} from './router';
 import store from './store';
 import Vuex from 'vuex';
 import vuetify from '@/plugins/vuetify';
+
 import '@/assets/scss/main.scss';
-import Close from 'vue-material-design-icons/Close.vue';
-import Delete from 'vue-material-design-icons/Delete.vue';
-import BackupRestore from 'vue-material-design-icons/BackupRestore.vue';
-import ChevronDown from 'vue-material-design-icons/ChevronDown';
-import DeleteCircleOutline from 'vue-material-design-icons/DeleteCircleOutline';
+
 import MainLayout from './layouts/MainLayout.vue';
+import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd';
+import {
+  uniArrowCircleLeftThinline,
+  uniUserCircle,
+} from 'vue-unicons/dist/icons';
+
 import setupInterceptors from './services/setupInterceptors';
 
 Vue.config.productionTip = false;
 
-Vue.component('arrow-icon', ChevronDown);
-Vue.component('close-icon', Close);
-Vue.component('delete-icon', Delete);
-Vue.component('restore-icon', BackupRestore);
-Vue.component('delete-icon', DeleteCircleOutline);
 Vue.use(Vuex);
 
+Unicon.add([uniArrowCircleLeftThinline, uniUserCircle]);
+Vue.use(Unicon);
 Vue.use(MainLayout);
 setupInterceptors(store);
 
