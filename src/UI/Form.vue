@@ -91,7 +91,9 @@ export default {
   methods: {
     async onClickSubmit() {
       console.warn('onClickSubmit');
-      console.log(this.dataForm);
+      const data = this.dataForm;
+      console.log(data);
+      return await this.toSubmit(data);
     },
     onClickCancel() {
       console.warn('OnClicCancel');

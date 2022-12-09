@@ -7,16 +7,9 @@ export default class User extends Model {
   static fields() {
     return {
       id: this.number(null),
-      last_login: this.attr(''),
       username: this.attr(''),
-      first_name: this.attr(''),
-      last_name: this.attr(''),
       email: this.attr(''),
-      data_joined: this.attr(''),
       role: this.attr(''),
-      team: this.number(null),
-      account: this.number(null),
-      is_superuser: this.attr(false),
     };
   }
   static axios = instance;

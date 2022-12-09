@@ -110,7 +110,8 @@ export default {
     },
     async onClickApplyRegister(data) {
       console.warn('onClickRegister');
-      console.log(data);
+      data['role'] = 'USER';
+      const payload = data;
     },
     onClickCancelRegister() {
       console.warn('OnClickCancel Register');
