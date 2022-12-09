@@ -1,4 +1,4 @@
-export default class UserRegister {
+class UserRegister {
   constructor() {
     this.props = {
       username: 'Имя пользователя',
@@ -6,7 +6,9 @@ export default class UserRegister {
       role: 'USER',
       password: 'Пароль',
     };
-    this.propsHide = ['role'];
+    this.propsHide = {role: true};
     this.rules = {username: 'field', email: 'email', password: 'field'};
   }
 }
+
+export default new UserRegister();

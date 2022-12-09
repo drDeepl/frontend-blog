@@ -8,10 +8,14 @@ import vuetify from '@/plugins/vuetify';
 import '@/assets/scss/main.scss';
 
 import MainLayout from './layouts/MainLayout.vue';
+
 import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd';
 import {
   uniArrowCircleLeftThinline,
   uniUserCircle,
+  uniSignin,
+  uniSignout,
+  uniUserPlus,
 } from 'vue-unicons/dist/icons';
 
 import setupInterceptors from './services/setupInterceptors';
@@ -20,7 +24,14 @@ Vue.config.productionTip = false;
 
 Vue.use(Vuex);
 
-Unicon.add([uniArrowCircleLeftThinline, uniUserCircle]);
+Unicon.add([
+  uniArrowCircleLeftThinline,
+  uniUserCircle,
+  uniSignin,
+  uniSignout,
+  uniUserPlus,
+]);
+
 Vue.use(Unicon);
 Vue.use(MainLayout);
 setupInterceptors(store);

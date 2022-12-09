@@ -12,3 +12,14 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.layout-form {
+  border-top: 5px solid $color-orange !important;
+  border-radius: $border-radius !important;
+}
+
+.form-header-layout {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

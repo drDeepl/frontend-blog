@@ -31,7 +31,7 @@ export const auth = {
   },
   getters: {
     initState: (state) => {
-      return state;
+      return state.user;
     },
     isLoggedIn: (state) => {
       return state.status.loggedIn;
