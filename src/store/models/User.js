@@ -10,6 +10,7 @@ export default class User extends Model {
       username: this.attr(''),
       email: this.attr(''),
       role: this.attr(''),
+      password: this.attr(''),
     };
   }
   static axios = instance;

@@ -4,11 +4,14 @@
       <Form
         v-if="forms.register.active"
         title="Регистрация"
-        :active="forms.register.active"
+        :isActive="forms.register.active"
+        :isSucces="forms.register.isSucces"
         :model="forms.register.modelData"
         :toSubmit="onClickApplyRegister"
         :toCancel="onClickCancelRegister"
-      />
+      >
+        {{ stateCreateUser }}
+      </Form>
 
       <v-navigation-drawer
         class="navigation-drawer-layout elevation-7"
@@ -91,13 +94,16 @@ export default {
     return {
       clickSidebar: true,
       forms: {
-        login: {active: false, modelData: undefined},
-        register: {active: false, modelData: UserRegister},
+        login: {active: false, modelData: undefined, isSucces: false},
+        register: {active: false, modelData: UserRegister, isSucces: false},
       },
     };
   },
   computed: {
-    ...mapGetters[{user: 'auth/initState'}],
+    ...mapGetters({
+      user: 'auth/initialState',
+      stateCreateUser: 'user/GET_CREATE_USER',
+    }),
   },
   watch: {},
 
@@ -112,6 +118,13 @@ export default {
       console.warn('onClickRegister');
       data['role'] = 'USER';
       const payload = data;
+      console.log(payload);
+      const dataResponse = await this.$store.dispatch(
+        'user/createUser',
+        payload
+      );
+      console.log(dataResponse);
+      this.forms.register.isSucces = true;
     },
     onClickCancelRegister() {
       console.warn('OnClickCancel Register');

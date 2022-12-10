@@ -1,10 +1,11 @@
 <template>
   <div>
-    <v-overlay v-model="active" :dark="false">
+    <v-overlay :value="isActive" :dark="false">
       <v-sheet class="pt-2 pb-2 pr-3 pl-3 layout-form">
-        <v-form v-model="valid">
+        <v-form v-model="valid" ref="form">
           <div class="form-header-layout">
             <v-card-title class="text-center">{{ title }}</v-card-title>
+            <slot></slot>
           </div>
 
           <div v-for="prop in fields" :key="prop">
@@ -14,6 +15,8 @@
               type="password"
               v-model="dataForm[prop]"
               :label="model.props[prop]"
+              :loading="load"
+              :disabled="load"
             >
             </v-text-field>
             <v-text-field
@@ -21,6 +24,9 @@
               color="orange accent-4"
               v-model="dataForm[prop]"
               :label="model.props[prop]"
+              :rules="rules[model.rules[prop]]"
+              :loading="load"
+              :disabled="load"
             >
             </v-text-field>
           </div>
@@ -44,12 +50,9 @@ import {copyObjectProperty} from '@/helpers/helper.objects';
 export default {
   props: {
     title: {type: String, required: false},
-    active: {
+    isActive: {
       type: Boolean,
       required: true,
-      default() {
-        return false;
-      },
     },
     model: {
       type: Object,
@@ -64,11 +67,16 @@ export default {
         return {submit: 'принять', cancel: 'закрыть'};
       },
     },
+    isSucces: {
+      type: Boolean,
+      required: false,
+    },
   },
 
   data() {
     return {
       valid: false,
+      load: false,
       dataForm: {},
       fields: [],
       showPassword: false,
@@ -88,11 +96,22 @@ export default {
     const data = copyObjectProperty(props);
     this.dataForm = data;
   },
+  watch: {
+    isSucces: function (isSucces) {
+      if (isSucces) {
+        this.load = false;
+        this.$refs.form.reset();
+      }
+    },
+  },
+
   methods: {
     async onClickSubmit() {
+      this.load = true;
       console.warn('onClickSubmit');
       const data = this.dataForm;
       console.log(data);
+
       return await this.toSubmit(data);
     },
     onClickCancel() {
