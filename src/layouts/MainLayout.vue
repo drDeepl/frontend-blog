@@ -1,17 +1,61 @@
 <template>
   <v-app id="app">
-    <v-card>
+    <v-sheet>
+      <v-sheet>
+        <Form
+          v-if="forms.register.active"
+          title="Регистрация"
+          :isActive="forms.register.active"
+          :isSucces="forms.register.isSucces"
+          :model="forms.register.modelData"
+          :toSubmit="onClickApplyRegister"
+          :toCancel="onClickCancelRegister"
+        >
+          <v-expand-transition>
+            <v-sheet
+              v-if="forms.register.isSucces"
+              class="transition-fast-in-fast-out v-card--reveal"
+              style="height: 100%"
+            >
+              <v-card-text class="pb-0 text-h6 text-center">
+                {{ stateCreateUser.message }}
+              </v-card-text>
+
+              <v-card-actions class="cards-container-buttons">
+                <v-flex align-self-center>
+                  <v-btn
+                    color="green darken-1"
+                    @click.prevent="onClickLogIn"
+                    class="pr-2 pl-2 pt-0 pb-0 mr-1"
+                    outlined
+                    rounded
+                  >
+                    войти
+                  </v-btn>
+                  <v-btn
+                    color="red darken-1"
+                    @click.prevent="onClickCancelLogin"
+                    class="pl-2 pr-2 pt-0 pb-0 ml-1"
+                    outlined
+                    rounded
+                  >
+                    закрыть
+                  </v-btn>
+                </v-flex>
+              </v-card-actions>
+            </v-sheet>
+          </v-expand-transition>
+        </Form>
+      </v-sheet>
       <Form
-        v-if="forms.register.active"
-        title="Регистрация"
-        :isActive="forms.register.active"
-        :isSucces="forms.register.isSucces"
-        :model="forms.register.modelData"
-        :toSubmit="onClickApplyRegister"
-        :toCancel="onClickCancelRegister"
-      >
-        {{ stateCreateUser }}
-      </Form>
+        v-if="forms.login.active"
+        title="Вход"
+        :isActive="forms.login.active"
+        :isSucces="forms.login.isSucces"
+        :model="forms.login.modelData"
+        :toSubmit="onClickApplyLogin"
+        :toCancel="onClickCancelLogin"
+      />
 
       <v-navigation-drawer
         class="navigation-drawer-layout elevation-7"
@@ -25,7 +69,7 @@
         <v-btn
           class="ma-2"
           x-small
-          color="red"
+          color="red darken-1"
           text
           icon
           @click.prevent="clickSidebar = !clickSidebar"
@@ -74,7 +118,7 @@
           </div>
         </div>
       </v-navigation-drawer>
-    </v-card>
+    </v-sheet>
     <v-main>
       <v-container fluid>
         <router-view></router-view>
@@ -87,6 +131,7 @@
 import {mapGetters} from 'vuex';
 import Form from '@/UI/Form';
 import UserRegister from '@/models/model.user.register';
+import UserLogin from '@/models/model.user.login';
 
 export default {
   components: {Form},
@@ -94,25 +139,43 @@ export default {
     return {
       clickSidebar: true,
       forms: {
-        login: {active: false, modelData: undefined, isSucces: false},
+        login: {active: false, modelData: UserLogin, isSucces: false},
         register: {active: false, modelData: UserRegister, isSucces: false},
       },
     };
   },
   computed: {
     ...mapGetters({
-      user: 'auth/initialState',
+      user: 'auth/initState',
       stateCreateUser: 'user/GET_CREATE_USER',
     }),
   },
   watch: {},
 
   methods: {
-    onClickLogIn() {},
+    onClickLogIn() {
+      console.warn('onClickLogIn');
+      this.forms.login.active = true;
+      if (this.forms.register.active) {
+        this.onClickCancelRegister();
+      }
+    },
+    onClickCancelLogin() {
+      console.warn('onClickCancelLogin');
+      this.forms.login.active = false;
+      this.forms.login.isSucces = false;
+    },
+    async onClickApplyLogin() {
+      console.warn('onClickApplyLogin: TODO');
+      // TODO
+    },
     onClickRegister() {
       console.warn('onClickRegister');
       this.forms.register.active = true;
       this.clickSidebar = true;
+      if (this.forms.login.active) {
+        this.onClickCancelRegister();
+      }
     },
     async onClickApplyRegister(data) {
       console.warn('onClickRegister');
@@ -129,6 +192,7 @@ export default {
     onClickCancelRegister() {
       console.warn('OnClickCancel Register');
       this.forms.register.active = false;
+      this.forms.register.isSucces = false;
     },
   },
 };

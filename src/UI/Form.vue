@@ -1,11 +1,10 @@
 <template>
   <div>
     <v-overlay :value="isActive" :dark="false">
-      <v-sheet class="pt-2 pb-2 pr-3 pl-3 layout-form">
-        <v-form v-model="valid" ref="form">
+      <v-sheet class="pt-2 pb-2 pr-3 pl-3 layout-form mx-auto">
+        <v-form v-model="valid" ref="form" v-if="!isSucces">
           <div class="form-header-layout">
             <v-card-title class="text-center">{{ title }}</v-card-title>
-            <slot></slot>
           </div>
 
           <div v-for="prop in fields" :key="prop">
@@ -40,6 +39,7 @@
             </v-btn>
           </v-card-actions>
         </v-form>
+        <slot></slot>
       </v-sheet>
     </v-overlay>
   </div>
