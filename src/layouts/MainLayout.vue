@@ -83,13 +83,21 @@
         </v-btn>
 
         <div class="container-user-info">
-          <v-avatar color="orange accent-3" size="47">
+          <v-avatar color="orange accent-3" :size="clickSidebar ? 47 : 65">
             <span class="white--text text-h5">
-              {{ user ? user.username[0] : '?' }}
+              {{ user.username[0] }}
             </span>
           </v-avatar>
 
-          <div class="container-user-action">
+          <v-card-text class="text-center text-h6 pt-0 white--text">
+            {{ clickSidebar ? '' : user.username }}
+          </v-card-text>
+        </div>
+        <div class="container-user-action">
+          <div
+            v-if="!user.status.loggedIn"
+            class="container-actions-before-login container-user-action"
+          >
             <v-btn
               text
               :icon="clickSidebar"
@@ -116,6 +124,15 @@
               <unicon name="user-plus" fill="white" icon-style="line" />
             </v-btn>
           </div>
+          <v-btn
+            v-if="user.status.loggedIn"
+            text
+            color="white"
+            @click.prevent="onClickLogOut"
+          >
+            <span v-if="!clickSidebar">выйти</span>
+            <unicon name="signout" fill="white" icon-style="line" />
+          </v-btn>
         </div>
       </v-navigation-drawer>
     </v-sheet>
@@ -165,9 +182,12 @@ export default {
       this.forms.login.active = false;
       this.forms.login.isSucces = false;
     },
-    async onClickApplyLogin() {
+    async onClickApplyLogin(data) {
       console.warn('onClickApplyLogin: TODO');
-      // TODO
+      const response = await this.$store.dispatch('auth/login', data);
+      console.log(response);
+      this.forms.login.isSucces = true;
+      this.forms.login.active = false;
     },
     onClickRegister() {
       console.warn('onClickRegister');
@@ -193,6 +213,10 @@ export default {
       console.warn('OnClickCancel Register');
       this.forms.register.active = false;
       this.forms.register.isSucces = false;
+    },
+    onClickLogOut() {
+      console.log('onClickLogOut');
+      this.$store.commit('auth/logout');
     },
   },
 };
