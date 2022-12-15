@@ -2,7 +2,12 @@
   <div>
     <v-overlay :value="isActive" :dark="false">
       <v-sheet class="pt-2 pb-2 pr-3 pl-3 layout-form mx-auto">
-        <v-form v-model="valid" ref="form" v-if="!isSucces">
+        <v-form
+          v-model="valid"
+          ref="form"
+          v-if="!isSucces"
+          @submit.prevent="onClickSubmit"
+        >
           <div class="form-header-layout">
             <v-card-title class="text-center">{{ title }}</v-card-title>
           </div>

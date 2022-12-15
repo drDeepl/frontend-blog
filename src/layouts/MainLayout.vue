@@ -46,6 +46,15 @@
             </v-sheet>
           </v-expand-transition>
         </Form>
+        <Form
+          v-if="forms.createTopic.active"
+          title="Создание темы"
+          :isActive="forms.createTopic.active"
+          :isSucces="forms.createTopic.isSucces"
+          :model="forms.createTopic.modelData"
+          :toSubmit="onClickApplyCreateTopic"
+          :toCancel="onClickCancelCreateTopic"
+        />
       </v-sheet>
       <Form
         v-if="forms.login.active"
@@ -89,7 +98,10 @@
             </span>
           </v-avatar>
 
-          <v-card-text class="text-center text-h6 pt-0 white--text">
+          <v-card-text
+            v-if="user.status.loggedIn"
+            class="text-center text-h6 pt-0 white--text"
+          >
             {{ clickSidebar ? '' : user.username }}
           </v-card-text>
         </div>
@@ -133,6 +145,14 @@
             <span v-if="!clickSidebar">выйти</span>
             <unicon name="signout" fill="white" icon-style="line" />
           </v-btn>
+          <v-btn
+            v-if="user.status.loggedIn"
+            text
+            color="white"
+            @click.prevent="onClickCreateTopic"
+          >
+            <span v-if="!clickSidebar">Создать тему</span>
+          </v-btn>
         </div>
       </v-navigation-drawer>
     </v-sheet>
@@ -149,6 +169,7 @@ import {mapGetters} from 'vuex';
 import Form from '@/UI/Form';
 import UserRegister from '@/models/model.user.register';
 import UserLogin from '@/models/model.user.login';
+import CreateTopic from '@/models/model.create.topic';
 
 export default {
   components: {Form},
@@ -158,6 +179,7 @@ export default {
       forms: {
         login: {active: false, modelData: UserLogin, isSucces: false},
         register: {active: false, modelData: UserRegister, isSucces: false},
+        createTopic: {active: false, modelData: CreateTopic, isSucces: false},
       },
     };
   },
@@ -165,6 +187,8 @@ export default {
     ...mapGetters({
       user: 'auth/initState',
       stateCreateUser: 'user/GET_CREATE_USER',
+      createCategory: 'category/GET_STATE_createCategory',
+      getCategories: 'category/GET_STATE_getCategories',
     }),
   },
   watch: {},
@@ -183,7 +207,7 @@ export default {
       this.forms.login.isSucces = false;
     },
     async onClickApplyLogin(data) {
-      console.warn('onClickApplyLogin: TODO');
+      console.warn('onClickApplyLogin:');
       const response = await this.$store.dispatch('auth/login', data);
       console.log(response);
       this.forms.login.isSucces = true;
@@ -213,6 +237,21 @@ export default {
       console.warn('OnClickCancel Register');
       this.forms.register.active = false;
       this.forms.register.isSucces = false;
+    },
+    onClickCreateTopic() {
+      console.warn('onClickCreateTab');
+      this.forms.createTopic.active = true;
+    },
+    async onClickApplyCreateTopic(data) {
+      console.warn('onClickApplyCreateTopic');
+      const response = await this.$store.dispatch(
+        'category/createCategory',
+        data
+      );
+      console.log(response);
+    },
+    onClickCancelCreateTopic() {
+      this.forms.createTopic.active = false;
     },
     onClickLogOut() {
       console.log('onClickLogOut');

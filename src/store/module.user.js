@@ -15,28 +15,27 @@ export const user = {
       let message = '';
       let stateData = {status: status, message: message};
       context.commit('SET_STATE_CREATE_USER', stateData);
-      // const responseWrap = await User.api().createUser(payload);
-      // const response = responseWrap.response;
-      // const data = response.data;
-      // const statusCode = response.status;
+      const responseWrap = await User.api().createUser(payload);
+      const response = responseWrap.response;
+      const data = response.data;
+      const statusCode = response.status;
       status = context.state.status.registration.COMPLETE;
       message = 'Аккаунт успешно создан!';
       stateData.status = status;
       stateData.message = message;
       context.commit('SET_STATE_CREATE_USER', stateData);
-      // if (statusCode === 200) {
-      //   status = context.state.status.registration.COMPLETE;
-      //   message = 'Аккаунт успешно создан!';
-      //   stateData.status = status;
-      //   stateData.message = message;
-      //   console.log(stateData);
-      //   return data;
-      // } else {
-      //   status = context.state.status.registration.ERROR;
-      //   message = 'произошла ошибка';
-      //   return {};
-      // }
-      console.log(payload, User);
+      if (statusCode === 200) {
+        status = context.state.status.registration.COMPLETE;
+        message = 'Аккаунт успешно создан!';
+        stateData.status = status;
+        stateData.message = message;
+        console.log(stateData);
+        return data;
+      } else {
+        status = context.state.status.registration.ERROR;
+        message = 'произошла ошибка';
+        return {};
+      }
     },
   },
   getters: {
