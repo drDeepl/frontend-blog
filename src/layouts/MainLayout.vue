@@ -65,6 +65,15 @@
         :toSubmit="onClickApplyLogin"
         :toCancel="onClickCancelLogin"
       />
+      <Form
+        v-if="forms.createCard.active"
+        title="Создание поста"
+        :isActive="forms.createCard.active"
+        :isSucces="forms.createCard.isSucces"
+        :model="forms.createCard.modelData"
+        :toSubmit="onClickApplyCreateCard"
+        :toCancel="onClickCancelCreateCard"
+      />
 
       <v-navigation-drawer
         class="navigation-drawer-layout elevation-7"
@@ -75,21 +84,33 @@
         :mini-variant="clickSidebar"
         right
       >
-        <v-btn
-          class="ma-2"
-          x-small
-          color="red darken-1"
-          text
-          icon
-          @click.prevent="clickSidebar = !clickSidebar"
-        >
-          <unicon
-            :class="'menu-toggle'"
-            name="arrow-circle-left"
-            fill="white"
-            icon-style="thinline"
-          />
-        </v-btn>
+        <div class="header-nav-drawer-layout">
+          <v-btn
+            class="ma-2"
+            x-small
+            color="red darken-1"
+            text
+            icon
+            @click.prevent="clickSidebar = !clickSidebar"
+          >
+            <unicon
+              :class="'menu-toggle'"
+              name="arrow-circle-left"
+              fill="white"
+              icon-style="thinline"
+            />
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            v-if="user.status.loggedIn"
+            text
+            color="white"
+            @click.prevent="onClickLogOut"
+          >
+            <span v-if="!clickSidebar">выйти</span>
+            <unicon name="signout" fill="white" icon-style="line" />
+          </v-btn>
+        </div>
 
         <div class="container-user-info">
           <v-avatar color="orange accent-3" :size="clickSidebar ? 47 : 65">
@@ -136,28 +157,42 @@
               <unicon name="user-plus" fill="white" icon-style="line" />
             </v-btn>
           </div>
-          <v-btn
-            v-if="user.status.loggedIn"
-            text
+          <v-select
+            v-if="!clickSidebar"
+            dark
+            v-model="currentCategory"
+            class="pa-2 white--text"
+            :items="categories"
+            item-text="title"
+            item-value="id"
+            item-color="deep-orange"
             color="white"
-            @click.prevent="onClickLogOut"
-          >
-            <span v-if="!clickSidebar">выйти</span>
-            <unicon name="signout" fill="white" icon-style="line" />
-          </v-btn>
-          <v-btn
-            v-if="user.status.loggedIn"
-            text
-            color="white"
-            @click.prevent="onClickCreateTopic"
-          >
-            <span v-if="!clickSidebar">Создать тему</span>
-          </v-btn>
+            label="Разделы:"
+          ></v-select>
+          <div v-if="user.status.loggedIn">
+            <v-btn
+              class="ma-0"
+              text
+              color="white"
+              @click.prevent="onClickCreateTopic"
+            >
+              <span v-if="!clickSidebar">Создать тему</span>
+            </v-btn>
+            <v-btn
+              class="ma-0"
+              text
+              color="white"
+              @click.prevent="onClickCreateCard"
+            >
+              <span v-if="!clickSidebar">Создать пост</span>
+            </v-btn>
+          </div>
         </div>
       </v-navigation-drawer>
     </v-sheet>
     <v-main>
       <v-container fluid>
+        {{ currentCategory }}
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -170,6 +205,7 @@ import Form from '@/UI/Form';
 import UserRegister from '@/models/model.user.register';
 import UserLogin from '@/models/model.user.login';
 import CreateTopic from '@/models/model.create.topic';
+import CreateCard from '@/models/model.create.card';
 
 export default {
   components: {Form},
@@ -180,7 +216,9 @@ export default {
         login: {active: false, modelData: UserLogin, isSucces: false},
         register: {active: false, modelData: UserRegister, isSucces: false},
         createTopic: {active: false, modelData: CreateTopic, isSucces: false},
+        createCard: {active: false, modelData: CreateCard, isSucces: false},
       },
+      currentCategory: '',
     };
   },
   computed: {
@@ -190,9 +228,15 @@ export default {
       createCategory: 'category/GET_STATE_createCategory',
       getCategories: 'category/GET_STATE_getCategories',
     }),
+    categories: function () {
+      return this.$store.$db().model('categories').all();
+    },
+  },
+  async created() {
+    console.warn('created MainLayout');
+    await this.$store.dispatch('category/getCategories');
   },
   watch: {},
-
   methods: {
     onClickLogIn() {
       console.warn('onClickLogIn');
@@ -242,20 +286,35 @@ export default {
       console.warn('onClickCreateTab');
       this.forms.createTopic.active = true;
     },
+    onClickCancelCreateTopic() {
+      this.forms.createTopic.active = false;
+    },
     async onClickApplyCreateTopic(data) {
       console.warn('onClickApplyCreateTopic');
       const response = await this.$store.dispatch(
         'category/createCategory',
         data
       );
+      this.onClickCancelCreateTopic();
       console.log(response);
     },
-    onClickCancelCreateTopic() {
-      this.forms.createTopic.active = false;
-    },
+
     onClickLogOut() {
       console.log('onClickLogOut');
       this.$store.commit('auth/logout');
+    },
+    onClickSelectCategory(item) {
+      console.warn('onClickSelectCategory');
+      console.log(item);
+    },
+    onClickCreateCard() {
+      this.forms.createCard.active = true;
+    },
+    async onClickApplyCreateCard() {
+      // TODO
+    },
+    onClickCancelCreateCard() {
+      this.forms.createCard.active = false;
     },
   },
 };
