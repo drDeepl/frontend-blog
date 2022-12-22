@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-overlay :value="isActive" :dark="false">
-      <v-sheet class="pt-2 pb-2 pr-3 pl-3 layout-form mx-auto">
+      <v-sheet
+        :class="
+          'pt-2 pb-2 pr-3 pl-3 mx-auto ' +
+          (fullscreen ? 'layout-form-fullscreen' : 'layout-form')
+        "
+      >
         <v-form
           v-model="valid"
           ref="form"
@@ -10,6 +15,7 @@
         >
           <div class="form-header-layout">
             <v-card-title class="text-center">{{ title }}</v-card-title>
+            {{ fullscreen ? 'layout-form-fullscreen' : '' }}
           </div>
 
           <div v-for="prop in fields" :key="prop">
@@ -75,6 +81,12 @@ export default {
     isSucces: {
       type: Boolean,
       required: false,
+    },
+    fullscreen: {
+      type: Boolean,
+      default() {
+        return false;
+      },
     },
   },
 

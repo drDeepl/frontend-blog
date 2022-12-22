@@ -65,12 +65,20 @@
         :toSubmit="onClickApplyLogin"
         :toCancel="onClickCancelLogin"
       />
-      <Form
+      <!-- <Form
         v-if="forms.createCard.active"
         title="Создание поста"
+        :fullscreen="true"
         :isActive="forms.createCard.active"
         :isSucces="forms.createCard.isSucces"
         :model="forms.createCard.modelData"
+        :toSubmit="onClickApplyCreateCard"
+        :toCancel="onClickCancelCreateCard"
+      /> -->
+      <Post
+        v-if="forms.createCard.active"
+        :isActive="forms.createCard.active"
+        :isSucces="forms.createCard.isSucces"
         :toSubmit="onClickApplyCreateCard"
         :toCancel="onClickCancelCreateCard"
       />
@@ -184,7 +192,7 @@
               color="white"
               @click.prevent="onClickCreateCard"
             >
-              <span v-if="!clickSidebar">Создать пост</span>
+              <span v-if="!clickSidebar">Создать карточку</span>
             </v-btn>
           </div>
         </div>
@@ -202,13 +210,15 @@
 <script>
 import {mapGetters} from 'vuex';
 import Form from '@/UI/Form';
+import Post from '@/UI/Post';
+
 import UserRegister from '@/models/model.user.register';
 import UserLogin from '@/models/model.user.login';
 import CreateTopic from '@/models/model.create.topic';
 import CreateCard from '@/models/model.create.card';
 
 export default {
-  components: {Form},
+  components: {Form, Post},
   data() {
     return {
       clickSidebar: true,

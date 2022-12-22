@@ -1,9 +1,17 @@
 class CreateCard {
   constructor() {
     this.props = {
-      title: 'Заголовоко',
+      title: 'Заголовок',
       description: 'Описание',
       text: 'Первые строки..',
+      image: 0,
+      datetime_repeat: '',
+      to_learn: false,
+    };
+    this.data = {
+      title: '',
+      description: '',
+      text: '',
       image: 0,
       datetime_repeat: '',
       to_learn: false,
